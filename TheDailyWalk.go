@@ -20,15 +20,23 @@ func doThing(name string, thing string, timeTaken int, timeOffset int, c chan in
 	dur := timeTaken + r.Intn(timeOffset)
 	time.Sleep(time.Duration(dur*10) * time.Millisecond)
 	fmt.Println(name + " spent " + strconv.Itoa(dur) + " seconds " + thing)
+	c <- dur
 }
 
 func getReady(name string, c chan int) {
 	doThing(name, "getting ready", 60, 30, c)
 }
 
+func putShoes(name string, c chan int){
+	doThing(name, "putting on shoes", 35, 10, c)
+}
+
 func armAlarm(c chan int){
 	time.Sleep(300 * time.Millisecond)
-	fmt.Println("tick .. tick .. tick ")
+	fmt.Println("tick .. tick .. tick ..")
+	time.Sleep(300 * time.Millisecond)
+	fmt.Println("Alarm is armed.")
+	c <- 1
 }
 
 func main () {
@@ -40,6 +48,9 @@ func main () {
 	alarmChan := make(chan int)
 	fmt.Println("Alarming alarm.")
 	go armAlarm(alarmChan)
-
-
+	go putShoes("Bob", c)
+	go putShoes("Alice", c)
+	_, _ = <-c, <-c
+	fmt.Println("Exiting and Locking the door")
+	_ = <-alarmChan
 }
