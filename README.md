@@ -11,3 +11,9 @@ GoRoutine * func which can run concurrently with other funcs
           * returns immediately to next line in ord of ops
 
 Channel   * provide way for two goroutines to talk to each other
+
+## Pointers and Structs in Go
+### - 
+
+## Sample Exercises
+### -
