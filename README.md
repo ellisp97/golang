@@ -12,8 +12,4 @@ GoRoutine * func which can run concurrently with other funcs
 
 Channel   * provide way for two goroutines to talk to each other
 
-## Pointers and Structs in Go
-### - 
-
-## Sample Exercises
-### -
+Select    * can be used in conjuction with channels similar to a regular switch statement
